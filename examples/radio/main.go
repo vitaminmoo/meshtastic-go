@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"github.com/charmbracelet/log"
 	pb "github.com/meshnet-gophers/meshtastic-go/meshtastic"
 	"github.com/meshnet-gophers/meshtastic-go/transport"
@@ -83,5 +82,5 @@ func processMessage(message *pb.Data) string {
 		return s.String()
 	}
 
-	return fmt.Sprintf("unknown message type")
+	return "unknown message type"
 }

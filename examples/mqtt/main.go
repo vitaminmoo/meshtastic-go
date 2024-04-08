@@ -3,7 +3,6 @@ package main
 import (
 	"encoding/base64"
 	"encoding/hex"
-	"fmt"
 	"github.com/charmbracelet/log"
 	pb "github.com/meshnet-gophers/meshtastic-go/meshtastic"
 	"github.com/meshnet-gophers/meshtastic-go/mqtt"
@@ -43,6 +42,9 @@ func channelHandler(channel string) mqtt.HandlerFunc {
 		}
 		var message pb.Data
 		err = proto.Unmarshal(decodedMessage, &message)
+		if err != nil {
+			log.Error(err)
+		}
 
 		log.Info(processMessage(&message), "topic", m.Topic, "channel", channel, "portnum", message.Portnum.String())
 	}
@@ -75,7 +77,7 @@ func processMessage(message *pb.Data) string {
 		return s.String()
 	}
 
-	return fmt.Sprintf("unknown message type")
+	return "unknown message type"
 }
 
 func generateKey(key string) ([]byte, error) {
