@@ -44,11 +44,11 @@ func channelHandler(channel string) mqtt.HandlerFunc {
 		var message pb.Data
 		err = proto.Unmarshal(decodedMessage, &message)
 
-		log.Info(processMessage(message), "topic", m.Topic, "channel", channel, "portnum", message.Portnum.String())
+		log.Info(processMessage(&message), "topic", m.Topic, "channel", channel, "portnum", message.Portnum.String())
 	}
 }
 
-func processMessage(message pb.Data) string {
+func processMessage(message *pb.Data) string {
 	if message.Portnum == pb.PortNum_NODEINFO_APP {
 		var user = pb.User{}
 		proto.Unmarshal(message.Payload, &user)
