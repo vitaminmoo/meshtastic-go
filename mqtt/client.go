@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-const MQTTProtoTopic = "/2/c/"
+const MQTTProtoTopic = "/2/e/"
 
 type Client struct {
 	server    string
