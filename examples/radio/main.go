@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"github.com/charmbracelet/log"
 	pb "github.com/meshnet-gophers/meshtastic-go/meshtastic"
 	"github.com/meshnet-gophers/meshtastic-go/transport"
@@ -44,7 +43,7 @@ func main() {
 	client.Handle(new(pb.MeshPacket), func(msg proto.Message) {
 		pkt := msg.(*pb.MeshPacket)
 		data := pkt.GetDecoded()
-		log.Info("Received message from radio", "msg", processMessage(*data), "from", pkt.From, "portnum", data.Portnum.String())
+		log.Info("Received message from radio", "msg", processMessage(data), "from", pkt.From, "portnum", data.Portnum.String())
 	})
 	ctxTimeout, cancelTimeout := context.WithTimeout(ctx, 10*time.Second)
 	defer cancelTimeout()
@@ -56,7 +55,7 @@ func main() {
 	<-ctx.Done()
 }
 
-func processMessage(message pb.Data) string {
+func processMessage(message *pb.Data) string {
 	if message.Portnum == pb.PortNum_NODEINFO_APP {
 		var user = pb.User{}
 		proto.Unmarshal(message.Payload, &user)
@@ -83,5 +82,5 @@ func processMessage(message pb.Data) string {
 		return s.String()
 	}
 
-	return fmt.Sprintf("unknown message type")
+	return "unknown message type"
 }
