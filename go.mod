@@ -9,7 +9,7 @@ require (
 	github.com/stretchr/testify v1.9.0
 	go.bug.st/serial v1.6.2
 	golang.org/x/sync v0.6.0
-	google.golang.org/protobuf v1.33.0
+	google.golang.org/protobuf v1.34.2
 )
 
 require (
